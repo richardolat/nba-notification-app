@@ -10,7 +10,7 @@ data "archive_file" "lambda_zip" {
 }
 
 resource "aws_iam_role" "lambda_execution" {
-  name = "lambda_execution_role_nba"  # Update the role name to something unique
+  name = "lambda_execution_role_nba_notification"  # Update the role name to something unique
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
