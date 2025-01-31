@@ -28,4 +28,3 @@ lambda_function.zip
 terraform.tfplan
 
 .env
-variables.tf
