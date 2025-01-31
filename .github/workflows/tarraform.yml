@@ -29,10 +29,16 @@ jobs:
       run: terraform init
 
     - name: Plan Terraform Deployment
-      run: terraform plan -var="ses_email=${{ secrets.SES_EMAIL }}" -var="recipient_email=${{ secrets.RECIPIENT_EMAIL }}" -var="sports_api_key=${{ secrets.SPORTS_API_KEY }}"
+      run: terraform plan \
+        -var="ses_email=${{ secrets.SES_EMAIL }}" \
+        -var="recipient_email=${{ secrets.RECIPIENT_EMAIL }}" \
+        -var="sports_api_key=${{ secrets.SPORTS_API_KEY }}"
 
     - name: Apply Terraform Deployment
-      run: terraform apply -auto-approve -var="ses_email=${{ secrets.SES_EMAIL }}" -var="recipient_email=${{ secrets.RECIPIENT_EMAIL }}" -var="sports_api_key=${{ secrets.SPORTS_API_KEY }}"
+      run: terraform apply -auto-approve \
+        -var="ses_email=${{ secrets.SES_EMAIL }}" \
+        -var="recipient_email=${{ secrets.RECIPIENT_EMAIL }}" \
+        -var="sports_api_key=${{ secrets.SPORTS_API_KEY }}"
 
     - name: Clean up Terraform workspace
       run: terraform workspace select default
