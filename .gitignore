@@ -1,0 +1,30 @@
+# Terraform Files
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform.lock.hcl
+
+# Python Files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment (if used)
+venv/
+env/
+
+# Logs
+*.log
+
+# AWS Lambda Zip file (Optional, if you want to ignore zip files)
+lambda_function.zip
+
+# Ignore sensitive environment files
+.env
+
+# Ignore Terraform plan and backup files
+*.backup
+terraform.tfplan
+
+

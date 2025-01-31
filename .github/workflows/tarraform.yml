@@ -1,0 +1,38 @@
+name: Terraform AWS Deployment
+
+on:
+  push:
+    branches:
+      - main  # Trigger workflow only for changes to the 'main' branch
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.4.0
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_region: ${{ secrets.AWS_REGION }}
+
+    - name: Initialize Terraform
+      run: terraform init
+
+    - name: Plan Terraform Deployment
+      run: terraform plan -var="ses_email=${{ secrets.SES_EMAIL }}" -var="recipient_email=${{ secrets.RECIPIENT_EMAIL }}" -var="sports_api_key=${{ secrets.SPORTS_API_KEY }}"
+
+    - name: Apply Terraform Deployment
+      run: terraform apply -auto-approve -var="ses_email=${{ secrets.SES_EMAIL }}" -var="recipient_email=${{ secrets.RECIPIENT_EMAIL }}" -var="sports_api_key=${{ secrets.SPORTS_API_KEY }}"
+
+    - name: Clean up Terraform workspace
+      run: terraform workspace select default
