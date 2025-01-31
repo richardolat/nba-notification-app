@@ -29,35 +29,45 @@ Clone the repository to your local machine:
 
 ```bash
 git clone https://github.com/your-repo/nba-notification-system.git
+``` 
+
+```
 cd nba-notification-system
+```
 2. Setup AWS Credentials
-You need to set up AWS credentials so the system can interact with AWS services (SES, SNS, Lambda, etc.). The recommended way to handle credentials is to use AWS IAM Roles for GitHub Actions, but if you're working locally or manually, you can configure them using the following methods:
+### You need to set up AWS credentials so the system can interact with AWS services (SES, SNS, Lambda, etc.). The recommended way to handle credentials is to use AWS IAM Roles for GitHub Actions, but if you're working locally or manually, you can configure them using the following methods:
 
-Option 1: Configure AWS CLI on your local machine
+## Option 1: Configure AWS CLI on your local machine
 
-Run the following command to configure your AWS credentials (this stores the credentials in the ~/.aws/credentials file):
+### Run the following command to configure your AWS credentials (this stores the credentials in the ~/.aws/credentials file):
 
-bash
-Copy
-Edit
+```
 aws configure
+```
 Provide the following details when prompted:
 
+```
 AWS Access Key ID
 AWS Secret Access Key
 Region (e.g., us-east-1)
-Option 2: Use GitHub Secrets for GitHub Actions If you are using GitHub Actions, set up the following secrets in your GitHub repository:
+```
 
+## Option 2: Use GitHub Secrets for GitHub Actions If you are using GitHub Actions, set up the following secrets in your GitHub repository:
+
+```
 AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
 AWS_REGION (e.g., us-east-1)
 SES_EMAIL (Verified sender email in SES)
 RECIPIENT_EMAIL (Verified recipient email in SES)
 SPORTS_API_KEY (API key for sportsdata.io)
-3. Install Terraform
-If you don't have Terraform installed, you can follow the instructions in the official documentation.
+```
 
-4. Setup and Deploy Using Terraform
+## 3. Install Terraform
+
+### If you don't have Terraform installed, you can follow the instructions in the official documentation.
+
+## 4. Setup and Deploy Using Terraform
 4.1 Initialize Terraform
 Navigate to the deployment/ folder and initialize Terraform:
 
@@ -95,11 +105,13 @@ import boto3
 from datetime import datetime
 
 # Load environment variables
+```
 SPORTS_API_KEY = os.getenv("SPORTS_API_KEY")
 SPORTS_API_URL = "https://api.sportsdata.io/v3/nba/scores/json/GamesByDate"
 SES_EMAIL = os.getenv("SES_EMAIL")
 SNS_TOPIC_ARN = os.getenv("SNS_TOPIC_ARN")
-
+```
+```
 sns_client = boto3.client("sns")
 ses_client = boto3.client("ses")
 
@@ -121,29 +133,32 @@ def send_notification(message):
         Message=message,
         Subject="NBA Game Updates"
     )
-5. Testing
-5.1 Local Testing (Using AWS SAM or Local Lambda)
-To test the Lambda function locally, you can use the AWS SAM CLI. Here's how:
+    ```
 
-Install the AWS SAM CLI following the instructions here.
+## 5. Testing
 
-To invoke the Lambda locally, run:
+## 5.1 Local Testing (Using AWS SAM or Local Lambda)
+### To test the Lambda function locally, you can use the AWS SAM CLI. Here's how:
 
-bash
-Copy
-Edit
+## Install the AWS SAM CLI following the instructions here.
+
+## To invoke the Lambda locally, run:
+
+```
 sam local invoke "FunctionName" -e event.json
-Make sure event.json contains the necessary test event data.
+``` 
 
-5.2 Test Lambda in AWS Console
-To test the Lambda function in the AWS Console:
+### Make sure event.json contains the necessary test event data.
 
-Go to the AWS Lambda Console.
-Select your Lambda function.
-Click on Test.
-Create a new test event or use the default one to trigger the function manually.
-5.3 Verify SNS and SES Notifications
-After triggering the Lambda function, verify that you received the game score notifications either via SNS or SES:
+## 5.2 Test Lambda in AWS Console
+### To test the Lambda function in the AWS Console:
 
-Check your email for the notifications.
-Ensure that your email (SES) and phone numbers (if using SMS via SNS) are properly subscribed to the SNS Topic in the AWS Console.
+### Go to the AWS Lambda Console.
+### Select your Lambda function.
+### Click on Test.
+## Create a new test event or use the default one to trigger the function manually.
+### 5.3 Verify SNS and SES Notifications
+### After triggering the Lambda function, verify that you received the game score notifications either via SNS or SES:
+
+### Check your email for the notifications.
+### Ensure that your email (SES) and phone numbers (if using SMS via SNS) are properly subscribed to the SNS Topic in the AWS Console.
