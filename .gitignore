@@ -27,4 +27,5 @@ lambda_function.zip
 *.backup
 terraform.tfplan
 
-
+.env
+variables.tf

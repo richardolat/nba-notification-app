@@ -47,9 +47,8 @@ resource "aws_iam_role_policy" "lambda_ses_permissions" {
 }
 This policy allows the Lambda function to send both regular emails (ses:SendEmail) and raw emails (ses:SendRawEmail) via SES.
 
-## Project Setup
-
-### 1. Clone the Repository
+Project Setup
+1. Clone the Repository
 Clone the repository to your local machine:
 
 ```bash
