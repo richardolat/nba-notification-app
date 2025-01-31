@@ -182,6 +182,6 @@ def lambda_handler(event, context):
 ## Conclusion
 ### This project provides an automated event-driven system that fetches real-time NBA game scores and notifies users via email using SES. It was built as part of Day 2 of the 30 Days of DevOps challenge.
 
-### Feel free to explore, modify, and build on this as you continue your DevOps journey. If you have any issues or feedback, don’t hesitate to raise an issue or contact me!
+### Feel free to explore, modify, and build on this as you continue your DevOps journey. If you have any issues or feedback, don’t hesitate to raise an issue or contact me on richardolatunde20@outlook.com!
 
 
