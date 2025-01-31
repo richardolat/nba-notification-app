@@ -10,7 +10,7 @@ data "archive_file" "lambda_zip" {
 }
 
 resource "aws_iam_role" "lambda_execution" {
-  name = "lambda_execution_role_nba_notification"  # Update the role name to something unique
+  name = "lambda_execution_role_nba_notification_terraformone"  # Update the role name to something unique
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -26,7 +26,6 @@ resource "aws_iam_role" "lambda_execution" {
   })
 }
 
-
 resource "aws_iam_role_policy_attachment" "lambda_policy" {
   role       = aws_iam_role.lambda_execution.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
@@ -34,7 +33,7 @@ resource "aws_iam_role_policy_attachment" "lambda_policy" {
 
 resource "aws_lambda_function" "nba_notification" {
   filename         = data.archive_file.lambda_zip.output_path
-  function_name    = "nba_notification_function"
+  function_name    = "nba_notification_function_terraform"  # Renaming the function
   role             = aws_iam_role.lambda_execution.arn
   handler          = "lambda_function.lambda_handler"
   runtime          = "python3.9"
