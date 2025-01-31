@@ -1,4 +1,4 @@
-```hcl 
+
 # SES Sender Email (Verified SES email)
 variable "ses_email" {
   description = "Verified SES sender email address"
@@ -19,4 +19,3 @@ variable "sports_api_key" {
   type        = string
   sensitive   = true
 }
-```
